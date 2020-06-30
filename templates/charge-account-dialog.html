@@ -1,0 +1,26 @@
+<div class="modal fade" id="charge_account_dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Charge Your Account</h4>
+            </div>
+            <div class="modal-body">
+                <form id="charge_account_dialog_body">
+                    <div class="form-group">
+                        <label for="charge_amount">How Much Credit</label>
+                        <select class="form-control" id="charge_amount" name="charge_amount">
+                            <option name="20_dollar" value="20">$20</option>
+                            <option name="40_dollar" value="40">$40</option>
+                            <option name="60_dollar" value="60">$60</option>
+                        </select>
+                    </div>
+                    <button id="charge_account_but" class="btn btn-primary">Charge!</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
