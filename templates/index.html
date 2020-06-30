@@ -6,8 +6,19 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 -->
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/pizza.css')}}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}"> -->
+
+<link rel="stylesheet" href="https://bootswatch.com/flatly/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/pizza.css')}}">
 <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+<link rel="stylesheet" href="../static/css/pizza.css">
+<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;700&display=swap" rel="stylesheet">
+
+
 
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="{{ url_for('static', filename='js/libs/jquery-tmpl.js')}}"></script>
@@ -19,106 +30,116 @@
 <meta charset="UTF-8">
 <title>PizzaCyber</title>
 {% endblock %}
-<body>
-<input hidden id="logged_in_user_id" value="{{ user_id }}">
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <!--<a class="navbar-brand" href="/">PizzaPlace!</a>-->
-            <a href="/"><img src="/static/images/pizzalogo5.png" class="navbar-brand header-image"/></a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            {% if user_id %}
-            <ul class="nav navbar-nav">
-                <li><a id="account_balance" href="#">Current Balance: ${{ user_balance }}</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Funds<span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a id="charge_account_dialog_but" href="#">Buy More Credit</a></li>
-                        <li class="divider"></li>
-                        <li><a id="transfer_money_dialog_but" href="#">Transfer Credit</a></li>
-                    </ul>
-                </li>
-                <li><a id="order_hostory_but" href="/history?get={{ user_id }}">Order History</a></li>
-                <li><a id="inbox_but" href="/messages">Inbox ({{ num_unread_messages }})</a></li>
-            </ul>
-            {% endif %}
-            <ul class="nav navbar-nav navbar-right">
+<body
+    style="background-image: url('../static/images/background.jpg');  background-repeat: no-repeat; background-size: cover;">
+    <input hidden id="logged_in_user_id" value="{{ user_id }}">
+
+    <nav class="navbar navbar-main">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!--<a class="navbar-brand" href="/">PizzaPlace!</a>-->
+                <a href="/"><img src="/static/images/luigi.png" class="navbar-brand header-image" /></a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 {% if user_id %}
-                <li>
-                    <a class="navbar-brand" href="#">Welcome {{ user_name }}!</a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a id="change_passowrd_but" href="#">Change Password</a></li>
-                        <!--<li class="divider"></li>-->
-                        <!--<li><a href="#">Change Email</a></li>-->
-                    </ul>
-                </li>
-                <li><a href="/logout">Logout</a></li>
-                {% else %}
-                <li><a id="register_but" href="#">Sign up!</a></li>
-                <li><a id="login_but" href="#">Login</a></li>
+                <ul class="nav navbar-nav">
+                    <li><a id="account_balance" href="#">Current Balance: ${{ user_balance }}</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-expanded="false">Funds<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a id="charge_account_dialog_but" href="#">Buy More Credit</a></li>
+                            <li class="divider"></li>
+                            <li><a id="transfer_money_dialog_but" href="#">Transfer Credit</a></li>
+                        </ul>
+                    </li>
+                    <li><a id="order_hostory_but" href="/history?get={{ user_id }}">Order History</a></li>
+                    <li><a id="inbox_but" href="/messages">Inbox ({{ num_unread_messages }})</a></li>
+                </ul>
                 {% endif %}
-            </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user_id %}
+                    <li>
+                        <a href="#">Welcome {{ user_name }}!</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-expanded="false">Settings<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a id="change_passowrd_but" href="#">Change Password</a></li>
+                            <!--<li class="divider"></li>-->
+                            <!--<li><a href="#">Change Email</a></li>-->
+                        </ul>
+                    </li>
+                    <li><a href="/logout">Logout</a></li>
+                    {% else %}
+                    <li><a id="register_but" href="#">Sign up!</a></li>
+                    <li><a id="login_but" href="#">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<div>
-<!-- We are watching you...  -->
-<a href="/mobile_promotion"><img src="/static/images/app1.png" class="side-image" style="display:box"/></a>
-</div>
-{% if user_is_vip %}
-<img src="/static/images/vip.jpg"  class="side-image-right"/>
-{%endif%}
-
-<div id="load_spinner" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Loading...</h4>
-            </div>
-            <div class="modal-body">
-                <div style="height:200px">
-                    <span id="load_spinner_body" style="position: absolute;display: block;top: 50%;left: 50%;"></span>
-                </div>
-            </div>
-            <div class="modal-footer"></div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<login-dialog></login-dialog>
-<change-password-dialog></change-password-dialog>
-<register-dialog></register-dialog>
-<charge-account-dialog></charge-account-dialog>
-<transfer-money-dialog></transfer-money-dialog>
-
-<div class="centered" style="background: #2c3e50;">
-    <div id="server_message">
-        {% if server_message %}
-            <div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times;</button>{{ server_message }}</div>
-        {% endif %}
-        {% if err_message %}
-            <div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times;</button>{{ err_message }}</div>
-        {% endif %}
-
-    </div>
-    {% block content %}
     <div>
+        <!-- We are watching you...  -->
+        <a href="/mobile_promotion"><img src="/static/images/app1.png" class="side-image-right"
+                style="display:box" /></a>
     </div>
-    <dishes-tabs></dishes-tabs>
-    {% endblock %}
-</div>
+    {% if user_is_vip %}
+    <img src="/static/images/vip.jpg" class="side-image-right" />
+    {%endif%}
+
+    <div id="load_spinner" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Loading...</h4>
+                </div>
+                <div class="modal-body">
+                    <div style="height:200px">
+                        <span id="load_spinner_body"
+                            style="position: absolute;display: block;top: 50%;left: 50%;"></span>
+                    </div>
+                </div>
+                <div class="modal-footer"></div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <login-dialog></login-dialog>
+    <change-password-dialog></change-password-dialog>
+    <register-dialog></register-dialog>
+    <charge-account-dialog></charge-account-dialog>
+    <transfer-money-dialog></transfer-money-dialog>
+
+    <div class="centered">
+        <div id=" server_message">
+            {% if server_message %}
+            <div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true"> &times;</button>{{ server_message }}</div>
+            {% endif %}
+            {% if err_message %}
+            <div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true"> &times;</button>{{ err_message }}</div>
+            {% endif %}
+
+        </div>
+        {% block content %}
+        <div>
+        </div>
+        <dishes-tabs></dishes-tabs>
+        {% endblock %}
+    </div>
 
 </body>
+
 </html>

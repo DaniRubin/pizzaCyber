@@ -2,25 +2,28 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
                 <h4 class="modal-title">Money Transfer</h4>
             </div>
             <div class="modal-body">
                 <form id="transfer_money_dialog_body">
                     <div class="form-group">
-                        <label for="user_id_to_transfer_money_to">To which user id do you want to transfer money to?</label>
-                        <input type="number" class="form-control" id="user_id_to_transfer_money_to" placeholder="Enter user id" name="user_id_transfer">
+                        <label for="user_name_to_transfer_money_to">To which user name do you want to transfer money
+                            to?</label>
+                        <input type="string" class="form-control" id="user_name_to_transfer_money_to"
+                            placeholder="Enter user name" name="user_id_transfer">
                     </div>
                     <div class="form-group">
                         <label for="money_amount_to_Transfer">Amount in dollars to transfer</label>
-                        <input type="number" class="form-control" id="money_amount_to_transfer" placeholder="Enter dollars amount" name="amount_to_transfer">
+                        <input type="number" class="form-control" id="money_amount_to_transfer"
+                            placeholder="Enter dollars amount" name="amount_to_transfer">
                     </div>
-                    <button id="transfer_money_but" class="btn btn-primary">Transfer!</button>
+                    <button id="transfer_money_but" class="mainButton">Transfer!</button>
                 </form>
             </div>
-            <div class="modal-footer">
+            <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
+            </div> -->
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

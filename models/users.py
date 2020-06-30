@@ -1,6 +1,6 @@
 from sqlalchemy.orm import backref
 from models import db
-from flask.ext.security import UserMixin, RoleMixin
+from flask_security import UserMixin, RoleMixin
 from models.food import FoodOrder
 from models.message import Message
 
