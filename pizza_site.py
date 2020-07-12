@@ -15,9 +15,9 @@ from werkzeug.routing import BaseConverter
 from app_factory import app
 from models import db
 from flask import render_template, jsonify, request, redirect, url_for, g
-from flask_security.forms import Required
-from flask_security import Security, SQLAlchemyUserDatastore, utils
-from flask_wtf import Form
+from flask_security.forms import Required	
+from flask_security import Security, SQLAlchemyUserDatastore, utils	
+from flask_wtf import Form	
 from flask_wtf.csrf import generate_csrf
 from flask_security.forms import RegisterForm, LoginForm
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
@@ -58,19 +58,19 @@ class ExtendedRegisterForm(RegisterForm):
     user_name = TextField('User Name', [Required()])
     is_vip = BooleanField('VIP User', [])
 
-    # def validate(self):
-    #     # Use standard validator
-    #     validation = Form.validate(self)
-    #     validation_result = validateUser(self.data["user_name"], self.data["email"])
+    def validate(self):
+        # Use standard validator
+        validation = RegisterForm.validate(self)
+        validation_result = validateUser(self.data["user_name"], self.data["email"])
 
-    #     if validation_result["is_user_taken"]:
-    #         self.email.errors.append("username already taken")
+        if validation_result["is_user_taken"]:
+            self.email.errors.append("username already taken")
 
-    #     if self.is_vip.data is None:
-    #         self.is_vip.errors.append("no vip data")
-    #         validation = False
+        if self.is_vip.data is None:
+            self.is_vip.errors.append("no vip data")
+            validation = False
 
-    #     return validation_result["success"] and validation
+        return validation_result["success"] and validation
 
 
 # Setup Flask-Security
@@ -151,18 +151,18 @@ def init_db():
                                             password=utils.encrypt_password('pa55word'))
     second_user = user_datastore.create_user(email='lior@pizzaplace.com', user_name="garso",
                                              password=utils.encrypt_password('pa55word'))
-    db.session.add_all([
-        Food(type=FoodType.PIZZA, image_url="ROMA pizza.png", food_name="ROMA pizza", price_in_dollars=10,
-             id=554793),
-        Food(type=FoodType.PIZZA, image_url="VENIVE pizza.png", food_name="VENIVE pizza", price_in_dollars=15,
-             id=6979634),
-        Food(type=FoodType.PIZZA, image_url="TOSCANNA pizza.png", food_name="TOSCANNA pizza", price_in_dollars=20,
-             id=7354477),
-        Food(type=FoodType.SIDE, image_url="cola.png", food_name="Coke 0.5L", price_in_dollars=3,
-             id=5698744),
-        Food(type=FoodType.SIDE, image_url="icecream.png", food_name="Ice Cream", price_in_dollars=5,
-             id=6546869),
-        Food(type=FoodType.SIDE, image_url="Garlic Bread.png", food_name="Garlic Bread", price_in_dollars=7,
+    db.session.add_all([        	
+        Food(type=FoodType.PIZZA, image_url="ROMA pizza.png", food_name="ROMA pizza", price_in_dollars=10,	
+             id=554793),	
+        Food(type=FoodType.PIZZA, image_url="VENIVE pizza.png", food_name="VENIVE pizza", price_in_dollars=15,	
+             id=6979634),	
+        Food(type=FoodType.PIZZA, image_url="TOSCANNA pizza.png", food_name="TOSCANNA pizza", price_in_dollars=20,	
+             id=7354477),	
+        Food(type=FoodType.SIDE, image_url="cola.png", food_name="Coke 0.5L", price_in_dollars=3,	
+             id=5698744),	
+        Food(type=FoodType.SIDE, image_url="icecream.png", food_name="Ice Cream", price_in_dollars=5,	
+             id=6546869),	
+        Food(type=FoodType.SIDE, image_url="Garlic Bread.png", food_name="Garlic Bread", price_in_dollars=7,	
              id=7346795),
         Food(type=FoodType.SALE, image_url="garlic_bread.jpg", food_name="Garlic Bread", price_in_dollars=4,
              id=9574123),
@@ -322,7 +322,7 @@ def TransferMoneyToAccount(prefix):
     err_message = None
     server_message = None
     amount = float(request.args['amount'])
-    user_name = request.args['user_name']
+    user_name = request.args['user_name']	
 
     try:
         if amount < 0:
@@ -331,14 +331,14 @@ def TransferMoneyToAccount(prefix):
         elif amount == 0:
             err_message = "You cannot transfer zero amount of money."
             success = False
-        elif user_name == user.user_name:
+        elif user_name == user.user_name:	
             err_message = "You cannot transfer money to yourself."
             success = False
         elif user.account_balance < amount:
             err_message = "You do not have this kind of money to give."
             success = False
         else:
-            receiver = User.query.filter_by(user_name=user_name).one()
+            receiver = User.query.filter_by(user_name=user_name).one()	
             receiver.account_balance += amount
             user.account_balance -= amount
             db.session.commit()
@@ -508,14 +508,15 @@ def logout():
 
 @app.route('/login', methods=['POST'])
 def login():
+    print 'in custom login'
     user_name = request.form.get("user_name")
     password = request.form.get("password")
     if not password or not user_name:
         return jsonify(dict(success=False))
-        
-    # sqlLine = 'SELECT * FROM User WHERE password="'+password+'" AND user_name="'+user_name+'"'
-    # print(sqlLine)
-    # user = db.session.execute(sqlLine).first() 
+
+    # sqlLine = 'SELECT * FROM User WHERE password="'+password+'" AND user_name="'+user_name+'"'	
+    # print(sqlLine)	
+    # user = db.session.execute(sqlLine).first() 	
     # print(user)
 
     user = User.query.filter_by(user_name=user_name, password=password).first()
@@ -570,7 +571,7 @@ def register():
 
             message_text=""""Welcome to PizzaCyber!<br/>We're so happy to see you here!<br/>
                              As a new customer you are welcome to enjoy<br/>
-                             your first pizza with 5$ Special Discount<br role="presentation" />
+                             your first pizza with 5$ Special Discount<br />
                              Click <a href='/?enableSpecial=1'>here</a>!<br/>
                              <small>(*Valid for 1 purchase only)</small>"""
         ))
