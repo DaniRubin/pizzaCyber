@@ -4,7 +4,7 @@
         <h3>{[pizzaDetails.food_name]} <em class="pull-right">{[pizzaDetails.price_in_dollars | currency]}</em></h3>
         <div ng-show="pizzaDetails.image_url">
             <div class="img-wrap">
-                <img ng-src="{[ pizzaDetails.image_url ]}" />
+                <img ng-src="{[ pizzaDetails.image_url ]}" alt="{[pizzaDetails.food_name]}" />
             </div>
         </div>
 

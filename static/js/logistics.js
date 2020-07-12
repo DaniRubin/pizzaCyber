@@ -78,20 +78,18 @@
                 }
 
                 $('#login_but_submit').click(function () {
-                    console.log("inside but submit");
-
                     var params = {
                         user_name: $("#login_username").val(),
                         password: $("#login_password").val(),
                         csrf_token: $("#login_csrf_token").val(),
                     };
+                    console.log(params)
                     $.post("/login", params, "json")
                         .done(function (data) {
                             if (data.success) {
                                 window.location.reload();
                                 return;
                             }
-
                             alert("failed to login");
                         });
                 });

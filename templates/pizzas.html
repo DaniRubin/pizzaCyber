@@ -3,11 +3,11 @@
 		<h3></h3>
 		<div ng-show="pizzaDetails.image_url">
 			<div class="img-wrap">
-				<img ng-src="{[ pizzaDetails.image_url ]}" />
+				<img ng-src="{[ pizzaDetails.image_url ]}" alt="{[pizzaDetails.food_name]}" />
 			</div>
 
 			<div class="productData">
-				<p class="product_name">{[pizzaDetails.food_name]}</p><br />
+				<p class="product_name">{[pizzaDetails.food_name]}</p><br role="presentation" />
 				<p class="product_price">${[pizzaDetails.price_in_dollars]}.<span class="small_cash">00</span></p>
 			</div>
 		</div>

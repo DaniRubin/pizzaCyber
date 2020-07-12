@@ -508,11 +508,15 @@ def logout():
 
 @app.route('/login', methods=['POST'])
 def login():
-    print 'in custom login'
     user_name = request.form.get("user_name")
     password = request.form.get("password")
     if not password or not user_name:
         return jsonify(dict(success=False))
+        
+    # sqlLine = 'SELECT * FROM User WHERE password="'+password+'" AND user_name="'+user_name+'"'
+    # print(sqlLine)
+    # user = db.session.execute(sqlLine).first() 
+    # print(user)
 
     user = User.query.filter_by(user_name=user_name, password=password).first()
     if not user:
@@ -566,7 +570,7 @@ def register():
 
             message_text=""""Welcome to PizzaCyber!<br/>We're so happy to see you here!<br/>
                              As a new customer you are welcome to enjoy<br/>
-                             your first pizza with 5$ Special Discount<br />
+                             your first pizza with 5$ Special Discount<br role="presentation" />
                              Click <a href='/?enableSpecial=1'>here</a>!<br/>
                              <small>(*Valid for 1 purchase only)</small>"""
         ))

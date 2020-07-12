@@ -46,7 +46,8 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!--<a class="navbar-brand" href="/">PizzaPlace!</a>-->
-                <a href="/"><img src="/static/images/luigi.png" class="navbar-brand header-image" /></a>
+                <a href="/"><img src="/static/images/luigi.png" class="navbar-brand header-image"
+                        alt="luigi pizza logo" /></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 {% if user_id %}
@@ -92,10 +93,10 @@
     <div>
         <!-- We are watching you...  -->
         <a href="/mobile_promotion"><img src="/static/images/app1.png" class="side-image-right"
-                style="display:box" /></a>
+                alt="mobile promotion image" style="display:box" /></a>
     </div>
     {% if user_is_vip %}
-    <img src="/static/images/vip.jpg" class="side-image-right" />
+    <img src="/static/images/vip.jpg" class="side-image-right" alt="vip user image" />
     {%endif%}
 
     <div id="load_spinner" class="modal fade">
@@ -125,11 +126,11 @@
         <div id=" server_message">
             {% if server_message %}
             <div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true"> &times;</button>{{ server_message }}</div>
+                    aria-label="לסגירה"> &times;</button>{{ server_message }}</div>
             {% endif %}
             {% if err_message %}
             <div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true"> &times;</button>{{ err_message }}</div>
+                    aria-label="לסגירה"> &times;</button>{{ err_message }}</div>
             {% endif %}
 
         </div>
