@@ -5,10 +5,12 @@
 {% endblock %}
 
 {% block content %}
-<h1 style="color:white">Orders For {{order_user_name}}</h1>
+<h1 style="color:white">Order History</h1>
 {% for order in order_history %}
-<div class="list-group-item">
-    <span>{{ order.date }} -- {{ order.food_name }} <em class="pull-right">${{ order.price_in_dollars }}</em></span>
+<div class="list-group-item orderHistory">
+    <span class="history_name">{{ order.food_name }} </span>
+    <span class="history_date">{{ order.date }}</span>
+    <span class="history_money"><em class="pull-right">${{ order.price_in_dollars }}</em></span>
 </div>
 {% endfor %}
 {% endblock %}

@@ -26,6 +26,7 @@ from dateutil import parser
 
 from models.Session import UserSession
 
+
 __all__ = ["User", "Message", "Food", "Role"]
 
 # 20% discount
@@ -33,6 +34,12 @@ VIP_DISCOUNT = 0.2
 
 # 20% discount
 MANAGER_DISCOUNT = 1
+
+IS_SQL_INJECTION = False
+#check if magshimim project of WEB SEC project
+with open('./config.json') as file:
+    IS_SQL_INJECTION = json.load(file)['isSQLinjection']
+
 
 # Create app
 from wtforms.fields.core import BooleanField
@@ -152,21 +159,21 @@ def init_db():
     second_user = user_datastore.create_user(email='lior@pizzaplace.com', user_name="garso",
                                              password=utils.encrypt_password('pa55word'))
     db.session.add_all([        	
-        Food(type=FoodType.PIZZA, image_url="ROMA pizza.png", food_name="ROMA pizza", price_in_dollars=10,	
+        Food(type=FoodType.PIZZA, image_url="ROMA pizza.png", food_name="pizza ROMA", price_in_dollars=10,	
              id=554793),	
-        Food(type=FoodType.PIZZA, image_url="VENIVE pizza.png", food_name="VENIVE pizza", price_in_dollars=15,	
+        Food(type=FoodType.PIZZA, image_url="VENIVE pizza.png", food_name="pizza VENIVE", price_in_dollars=15,	
              id=6979634),	
-        Food(type=FoodType.PIZZA, image_url="TOSCANNA pizza.png", food_name="TOSCANNA pizza", price_in_dollars=20,	
+        Food(type=FoodType.PIZZA, image_url="TOSCANNA pizza.png", food_name="pizza TOSCANNA", price_in_dollars=20,	
              id=7354477),	
         Food(type=FoodType.SIDE, image_url="cola.png", food_name="Coke 0.5L", price_in_dollars=3,	
              id=5698744),	
         Food(type=FoodType.SIDE, image_url="icecream.png", food_name="Ice Cream", price_in_dollars=5,	
              id=6546869),	
-        Food(type=FoodType.SIDE, image_url="Garlic Bread.png", food_name="Garlic Bread", price_in_dollars=7,	
+        Food(type=FoodType.SIDE, image_url="garlic-bread.png", food_name="Garlic Bread", price_in_dollars=7,	
              id=7346795),
-        Food(type=FoodType.SALE, image_url="garlic_bread.jpg", food_name="Garlic Bread", price_in_dollars=4,
+        Food(type=FoodType.SALE, image_url="AMERICA pizza.png", food_name="pizza AMERICA", price_in_dollars=0,
              id=9574123),
-        Food(type=FoodType.SPECIAL, image_url="large_pizza.jpg", food_name="Large Pizza", price_in_dollars=5,
+        Food(type=FoodType.SPECIAL, image_url="TOSCANNA pizza.png", food_name="pizza TOSCANNA", price_in_dollars=5,
              id=1337)
     ])
 
@@ -363,7 +370,8 @@ def TransferMoneyToAccount(prefix):
 def GetMobilePromotion():
     user_data_dict = GetUserNavBarParams(g.current_user)
     
-    if re.search(r'getpizza', request.headers.get('User-Agent'), re.IGNORECASE) is not None:
+    #here need to be is *not* None
+    if re.search(r'getpizza', request.headers.get('User-Agent'), re.IGNORECASE) is  None:
         return render_template('mobile-index.html', **user_data_dict)
 
     else:
@@ -514,12 +522,17 @@ def login():
     if not password or not user_name:
         return jsonify(dict(success=False))
 
-    # sqlLine = 'SELECT * FROM User WHERE password="'+password+'" AND user_name="'+user_name+'"'	
-    # print(sqlLine)	
-    # user = db.session.execute(sqlLine).first() 	
-    # print(user)
+    print(IS_SQL_INJECTION)
 
-    user = User.query.filter_by(user_name=user_name, password=password).first()
+    # print("Is this magshimim project ?  - " + IS_MAGSHIMIM)
+    if(IS_SQL_INJECTION):
+        user = User.query.filter_by(user_name=user_name, password=password).first()
+    else:
+        sqlLine = 'SELECT * FROM User WHERE password="'+password+'" AND user_name="'+user_name+'"'	
+        user = db.session.execute(sqlLine).first() 	
+
+    print(user)
+
     if not user:
         return jsonify(dict(success=False))
 

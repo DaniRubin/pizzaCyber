@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!--<a class="navbar-brand" href="/">PizzaPlace!</a>-->
-                <a href="/"><img src="/static/images/luigi.png" class="navbar-brand header-image"
+                <a href="/"><img src="/static/images/logo.png" class="navbar-brand header-image"
                         alt="luigi pizza logo" /></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -55,7 +55,7 @@
                     <li><a id="account_balance" href="#">Current Balance: ${{ user_balance }}</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false">Funds<span class="caret"></span></a>
+                            aria-expanded="false">Credit<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a id="charge_account_dialog_but" href="#">Buy More Credit</a></li>
                             <li class="divider"></li>
@@ -82,8 +82,14 @@
                     </li>
                     <li><a href="/logout">Logout</a></li>
                     {% else %}
-                    <li><a id="register_but" href="#">Sign up!</a></li>
-                    <li><a id="login_but" href="#">Login</a></li>
+                    <div class="loginAndRegisterSection">
+                        Join our community!
+                        <span class="mainPageLink" id="register_but">Sign up</span>
+                        Or
+                        <span class="mainPageLink" id="login_but">Login</span>
+                    </div>
+                    <!-- <li><a id="register_but" href="#">Sign up</a></li>
+                    <li><a id="login_but" href="#">Login</a></li> -->
                     {% endif %}
                 </ul>
             </div>
@@ -92,7 +98,7 @@
 
     <div>
         <!-- We are watching you...  -->
-        <a href="/mobile_promotion"><img src="/static/images/app1.png" class="side-image-right"
+        <a href="/mobile_promotion"><img src="/static/images/appAdd.png" class="side-image-right"
                 alt="mobile promotion image" style="display:box" /></a>
     </div>
     {% if user_is_vip %}

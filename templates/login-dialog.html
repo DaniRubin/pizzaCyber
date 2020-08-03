@@ -9,13 +9,13 @@
                 <div id="pizza_login_dialog_body" action="/login" method="post">
                     <div class="form-group">
                         <label for="login_username">Username</label>
-                        <input type="text" class="form-control" id="login_username" placeholder="Enter username"
+                        <input type="text" class="form-control" id="login_username" placeholder="Enter your username"
                             name="user_name">
                     </div>
                     <div class="form-group">
                         <label for="login_password">Password</label>
-                        <input type="password" class="form-control" id="login_password" placeholder="Enter Password"
-                            name="password">
+                        <input type="password" class="form-control" id="login_password"
+                            placeholder="Enter your password" name="password">
                     </div>
                     <input type="hidden" class="form-control" name="submit" value="Login">
                     <input type="hidden" class="form-control" name="next" value="">
@@ -25,7 +25,7 @@
                     <button class="mainButton" id="login_but_submit">Login</button>
 
                     <div class="change-dialog-button">
-                        Not a member? <button onclick="switchDialog('pizza_login_dialog', 'pizza_register_dialog')"
+                        Not a member yet? <button onclick="switchDialog('pizza_login_dialog', 'pizza_register_dialog')"
                             type="button" class="buttonRegister">Sign Up</button>
                     </div>
                 </div>
