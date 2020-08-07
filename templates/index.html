@@ -2,13 +2,6 @@
 <html ng-app="pizzaSite">
 {% block head %}
 <link rel="stylesheet" href="https://bootswatch.com/flatly/bootstrap.min.css">
-<!--
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
--->
-<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/pizza.css')}}">
-<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}"> -->
-
 <link rel="stylesheet" href="https://bootswatch.com/flatly/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
@@ -52,35 +45,39 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 {% if user_id %}
                 <ul class="nav navbar-nav">
-                    <li><a id="account_balance" href="#">Current Balance: ${{ user_balance }}</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false">Credit<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a id="charge_account_dialog_but" href="#">Buy More Credit</a></li>
-                            <li class="divider"></li>
-                            <li><a id="transfer_money_dialog_but" href="#">Transfer Credit</a></li>
-                        </ul>
-                    </li>
-                    <li><a id="order_hostory_but" href="/history?get={{ user_id }}">Order History</a></li>
-                    <li><a id="inbox_but" href="/messages">Inbox ({{ num_unread_messages }})</a></li>
+
+                    <div class="loginAndRegisterSection">
+                        <span id="account_balance">Current Balance: ${{ user_balance }} </span>&nbsp;
+                        <div class="mainPageLink dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-expanded="false">Credit<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a id="charge_account_dialog_but" href="#">Buy More Credit</a></li>
+                                <li class="divider"></li>
+                                <li><a id="transfer_money_dialog_but" href="#">Transfer Credit</a></li>
+                            </ul>
+                        </div>&nbsp;
+                        <span class="mainPageLink"><a id="order_hostory_but" href="/history?get={{ user_id }}">Order
+                                History</a></span>&nbsp;&nbsp;
+                        <span class="mainPageLink"><a id="inbox_but" href="/messages">Inbox
+                                ({{ num_unread_messages }})</a></span>
+                    </div>
+
                 </ul>
                 {% endif %}
                 <ul class="nav navbar-nav navbar-right">
                     {% if user_id %}
-                    <li>
-                        <a href="#">Welcome {{ user_name }}!</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false">Settings<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a id="change_passowrd_but" href="#">Change Password</a></li>
-                            <!--<li class="divider"></li>-->
-                            <!--<li><a href="#">Change Email</a></li>-->
-                        </ul>
-                    </li>
-                    <li><a href="/logout">Logout</a></li>
+                    <div class="loginAndRegisterSection">
+                        Welcome {{ user_name }} &nbsp;
+                        <div class="mainPageLink dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-expanded="false">Settings<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a id="change_passowrd_but" href="#">Change Password</a></li>
+                            </ul>
+                        </div>&nbsp;
+                        <span class="mainPageLink"><a href="/logout">Logout</a></span>
+                    </div>
                     {% else %}
                     <div class="loginAndRegisterSection">
                         Join our community!
@@ -88,8 +85,6 @@
                         Or
                         <span class="mainPageLink" id="login_but">Login</span>
                     </div>
-                    <!-- <li><a id="register_but" href="#">Sign up</a></li>
-                    <li><a id="login_but" href="#">Login</a></li> -->
                     {% endif %}
                 </ul>
             </div>
@@ -131,8 +126,9 @@
     <div class="centered">
         <div id="server_message">
             {% if server_message %}
-            <div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert"
-                    aria-label="לסגירה"> &times;</button>{{ server_message }}</div>
+            <div class="server_message"><button type="button" class="close" data-dismiss="alert"
+                    aria-label="לסגירה"></button>
+                &times;</button>{{ server_message }}</div>
             {% endif %}
             {% if err_message %}
             <div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert"

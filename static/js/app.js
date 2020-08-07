@@ -229,7 +229,7 @@ function switchDialog(from, to) {
 }
 
 function updateServerMessage(data) {
-    var alertDiv = '<div class="alert alert-${alertType} alert-dismissable"><button type="button" class="close" data-dismiss="alert"  aria-label="לסגירה"> &times;</button>${msg}</div>';
+    var alertDiv = '<div class="alert server_message ${alertType}"><button type="button" class="close" data-dismiss="alert" aria-label="לסגירה">X</button>${msg}</div>';
     var alertType = null;
     var server_message = null;
 

@@ -316,7 +316,7 @@ def ChargeAccount():
     user.account_balance += desired_amount
     db.session.commit()
     return jsonify(dict(success=True,
-                        server_message="Your account has been charge with ${!s}".format(desired_amount),
+                        server_message="You added ${!s} to your account".format(desired_amount),
                         err_message=err_message,
                         account_balance=user.account_balance))
 
@@ -333,16 +333,16 @@ def TransferMoneyToAccount(prefix):
 
     try:
         if amount < 0:
-            err_message = "You cannot transfer a negative amount of money."
+            err_message = "Oooops, you cannot transfer a negative amount of dollars"
             success = False
         elif amount == 0:
-            err_message = "You cannot transfer zero amount of money."
+            err_message = "Oooops, you cannot transfer zero dollars"
             success = False
         elif user_name == user.user_name:	
-            err_message = "You cannot transfer money to yourself."
+            err_message = "Sorry, you cannot transfer money to yourself"
             success = False
         elif user.account_balance < amount:
-            err_message = "You do not have this kind of money to give."
+            err_message = "Sorry, you cannot transfer more money than you have"
             success = False
         else:
             receiver = User.query.filter_by(user_name=user_name).one()	
@@ -350,10 +350,9 @@ def TransferMoneyToAccount(prefix):
             user.account_balance -= amount
             db.session.commit()
             success = True
-            server_message = (("You have successfully transferred ${!s} to user id {!s} "
-                               "from your account balance").format(amount, receiver.id))
+            server_message = (("You have successfully transferred ${!s} to {!s} ").format(amount, receiver.user_name))
     except (NoResultFound, MultipleResultsFound), e:
-        err_message = "Could not find the user you wanted"
+        err_message = "Sorry, could not find the user you entered"
         success = False
     return jsonify(dict(success=success,
                         server_message=server_message,
@@ -371,7 +370,7 @@ def GetMobilePromotion():
     user_data_dict = GetUserNavBarParams(g.current_user)
     
     #here need to be is *not* None
-    if re.search(r'getpizza', request.headers.get('User-Agent'), re.IGNORECASE) is  None:
+    if re.search(r'getpizza', request.headers.get('User-Agent'), re.IGNORECASE) is not None:
         return render_template('mobile-index.html', **user_data_dict)
 
     else:
@@ -465,10 +464,10 @@ def OrderFood(food_type, food_id, discount, inner=False):
             user.account_balance -= desired_food_price
             db.session.commit()
             success = True
-            server_message = "Your {!s} is on it's way!!!".format(desired_food.food_name)
+            server_message = "The {!s} you ordered is on its way!".format(desired_food.food_name)
 
             if has_vip_discount:
-                server_message += " You got our VIP discount of {!s}%".format(VIP_DISCOUNT * 100)
+                server_message += "You've got our VIP discount of {!s}%".format(VIP_DISCOUNT * 100)
 
             if discount > 0:
                 server_message += " and you got another" if has_vip_discount else " You got a"
@@ -476,12 +475,12 @@ def OrderFood(food_type, food_id, discount, inner=False):
             server_message += ". You paid ${!s}".format(desired_food_price)
         else:
             if len(user.order_history) > USER_MAX_ORDER:
-                err_message = ("Don't you think you may have gotten a little bit too much pizza?")
+                err_message = ("This might be just a little too much pizza, ha?")
             else:
-                err_message = ("You do not have enough funds to get this. "
-                               "Please charge your account or get money transferred into it")
+                err_message = ("Your current balance is not sufficient for this order."
+                               " Please charge up your account or ask a friend to transfer some credit ")
     except (NoResultFound, MultipleResultsFound), e:
-        err_message = "Could not find the food you wanted :("
+        err_message = "Sorry, could not find the dish you wish to order"
         success = False
 
     res = dict(success=success,
@@ -580,13 +579,14 @@ def register():
         message = Message.FromDict(dict(
             from_user_id=admin_id,
             to_user_id=to_user_id,
-            subject="Welcome to PizzaCyber",
+            subject="Welcome to Pizza Luigi",
 
-            message_text=""""Welcome to PizzaCyber!<br/>We're so happy to see you here!<br/>
-                             As a new customer you are welcome to enjoy<br/>
-                             your first pizza with 5$ Special Discount<br />
-                             Click <a href='/?enableSpecial=1'>here</a>!<br/>
-                             <small>(*Valid for 1 purchase only)</small>"""
+            message_text=""""Welcome! We're so happy to see you here!<br/><br/>
+                             As a new member we invite you to enjoy your first pizza with a special offer -
+                             <br/><br/>
+                             <a href='/?enableSpecial=1'>Get your $5 pizza here!</a>!
+                             <br/><br/>
+                             <small>(Valid for 1 purchase only)</small>"""
         ))
 
         db.session.add(message)
@@ -697,9 +697,9 @@ def MessageView(requested_message_id):
             db.session.add(message)
             db.session.commit()
             success = True
-            server_message = "Message sent to {!s}!".format(message.to_user.user_name)
+            server_message = "Your message was sent to {!s}!".format(message.to_user.user_name)
         except (NoResultFound, MultipleResultsFound), e:
-            err_message = "Could not find the user you wanted to send an email to"
+            err_message = "Sorry, could not find the user you wanted to message"
             success = False
 
             user_data_dict.update(dict(success=success,
