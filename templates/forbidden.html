@@ -1,9 +1,10 @@
 {% extends "index.html" %}
 
 {% block head %}
-    {{ super() }}
+{{ super() }}
 {% endblock %}
 
 {% block content %}
-<div><h5 style="color: white;padding: 6px 5px;">Mobile App Only - Only GetPizza users are allowed</h5></div>
+<div class="alert server_message danger"><button type="button" class="close" data-dismiss="alert"
+        aria-label="לסגירה">X</button>Mobile App Only - Only GetPizza users are allowed</div>
 {% endblock %}

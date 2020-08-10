@@ -5,56 +5,82 @@
 {% endblock %}
 
 {% block content %}
+
+
 <table class="email_table">
+    <tr>
+        <!-- <td width="30"></td> -->
+        <td width="40">
+            <h4 style="color: #ffffff" class="writeMessageHeader">Write a new message</h4>
+        </td>
+        <!-- <td width="30"></td> -->
+    </tr>
+    <tr style="color: #ffffff">
+        <!-- <td width="30"></td> -->
+        <td width="40">
+            <form action="/messages" method="get" class="compose_form">
+                <div class="form-group sendEmailForm">
+                    <div class="to_part">
+                        <label for="new_message_to" style="width: 6%;">To:</label>
+                        <input type="text" class="form-control content_area" name="to_user" id="new_message_to"
+                            placeholder="Enter username">
+                    </div>
+                    <div class="subject_part">
+                        <label for="new_message_subject" style="width: 15%;">Subject:</label>
+                        <input type="text" class="form-control content_area" name="subject" id="new_message_subject"
+                            placeholder="Enter subject">
+                    </div>
+                    <div class="message_part">
+                        <textarea class="form-control" name="message_text" id="new_message_body" rows="5"
+                            placeholder="Write your message"></textarea>
+                    </div>
+                    <button id="send_email_but" class="mainButton">Send!</button>
+                </div>
+            </form>
+        </td>
+        <!-- <td width="30"></td> -->
+    </tr>
+</table>
+
+<hr />
+<hr />
+
+
+
+<table class="email_table">
+    <!-- <tr> -->
+    <!-- <td rowspan="2">
+            <h4 style="color: #ffffff" class="writeMessageHeader">Write a new message</h4>
+        </td> -->
+    <!-- </tr> -->
     <tr>
         <td class="left_column" height="10%" width="30%" valign="top">
             <div class="email_headers">
-            {% for message in messages %}
+                {% for message in messages %}
                 {% if message.unread %}
-                <div class="email_unread email_header" id="message_id_{{ message.id }}_header" onclick="toggleEmailBody('{{ message.id }}', true)">
-                {% else %}
-                <div class="email_header" id="message_id_{{ message.id }}_header" onclick="toggleEmailBody('{{ message.id }}', false)">
-                {% endif %}
-                    <a href="/messages/{{ message.id }}"><span><b>{{ message.from_user }}</b></span> <br/> <span>{{ message.subject }}</span></a>
+                <div class="email_unread email_header" id="message_id_{{ message.id }}_header"
+                    onclick="toggleEmailBody('{{ message.id }}', true)">
+                    {% else %}
+                    <div class="email_header" id="message_id_{{ message.id }}_header"
+                        onclick="toggleEmailBody('{{ message.id }}', false)">
+                        {% endif %}
+                        <a href="/messages/{{ message.id }}"><span><b>{{ message.from_user }}</b></span> <br />
+                            <span>{{ message.subject }}</span></a>
+                    </div>
+                    <!-- <hr /> -->
+                    {% endfor %}
                 </div>
-                <hr/>
-            {% endfor %}
-            </div>
         </td>
         <td valign="top" class="right_column email_body" id="message_id_{{ requested_message.id }}_body">
             {% if requested_message %}
-                {% autoescape off %}
-                {{ requested_message.message_text }}
-                {% endautoescape %}
+            {% autoescape off %}
+            {{ requested_message.message_text }}
+            {% endautoescape %}
             {% endif %}
         </td>
     </tr>
 </table>
-<hr/>
-<table class="email_table">
-    <tr>
-        <td width="30"></td>
-        <td width="40">
-            <h4 style="color: #ffffff">Compose a new message:</h4>
-        </td>
-        <td width="30"></td>
-    </tr>
-    <tr style="color: #ffffff">
-        <td width="30"></td>
-        <td width="40">
-            <form action="/messages" method="get" class="compose_form">
-                <div class="form-group" >
-                    <label for="new_message_to">To:</label>
-                    <input type="text" class="form-control" name="to_user" id="new_message_to">
-                    <label for="new_message_subject">Subject:</label>
-                    <input type="text" class="form-control" name="subject" id="new_message_subject">
-                    <label for="new_message_body">Message</label>
-                    <textarea class="form-control" name="message_text" id="new_message_body" rows="15"></textarea>
-                </div>
-                <button id="send_email_but" class="btn btn-success">Send!</button>
-            </form>
-        </td>
-        <td width="30"></td>
-    </tr>
-</table>
+<hr />
+
+<hr />
 {% endblock %}

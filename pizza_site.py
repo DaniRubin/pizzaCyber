@@ -154,7 +154,7 @@ def emptyDB():
 
 def init_db():
     admin_role = user_datastore.create_role(name='vip', description='Pizza VIP')
-    first_user = user_datastore.create_user(email='getpizza@PizzaCyber.pw', user_name="PizzaCyber", is_vip=True,
+    first_user = user_datastore.create_user(email='getpizza@PizzaLuigi.pw', user_name="PizzaLuigi", is_vip=True,
                                             password=utils.encrypt_password('pa55word'))
     second_user = user_datastore.create_user(email='lior@pizzaplace.com', user_name="garso",
                                              password=utils.encrypt_password('pa55word'))
@@ -182,7 +182,7 @@ def init_db():
 @app.before_first_request
 def create_user():
     db.create_all()
-    if not user_datastore.get_user('getpizza@PizzaCyber.pw'):
+    if not user_datastore.get_user('getpizza@PizzaLuigi.pw'):
         emptyDB()
         init_db()
 
@@ -406,7 +406,7 @@ def OrderHistory():
 def OrderSpecialFood(food_id):
     had_special = request.json.get('hadSpecial')
     if had_special == 'YES':
-        msg = "You've already had your special!"
+        msg = "Sorry, you can get this special offer only once"
         balance = g.current_user.account_balance
         return jsonify(dict(success=False, had_special='YES', err_message=msg,account_balance=balance))
     res = OrderFood(FoodType.SPECIAL, food_id, 0, True)
@@ -575,7 +575,7 @@ def register():
         db.session.commit()
 
         to_user_id = user.id
-        admin_id = User.query.filter_by(user_name="PizzaCyber").one().id
+        admin_id = User.query.filter_by(user_name="PizzaLuigi").one().id
         message = Message.FromDict(dict(
             from_user_id=admin_id,
             to_user_id=to_user_id,

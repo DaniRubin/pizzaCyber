@@ -42,6 +42,7 @@ label {
 .form-control {
     font-size: 18px !important;
     border: 1px solid #1C1C1C;
+
 }
 button.close:focus {
     border: none;
@@ -61,8 +62,13 @@ button.close:focus {
 }
 
 .email_header {
-    padding-top:5px;
+    padding-top: 15px;
+    background: rgba(255, 255, 2555, 0.1);
+    margin-bottom: 10px;
     cursor: pointer;
+}
+.email_header:hover {
+    background: rgba(255, 255, 2555, 0.4);
 }
 
 .email_unread {
@@ -393,4 +399,41 @@ a {
 }
 .danger {
     background-color: red;
+}
+
+
+
+.to_part {
+    display: inline-block;
+    width:50%;
+}
+.subject_part {
+    display: inline-block;
+    width:50%;
+    float: right;
+}
+.message_part {
+    margin-top: 20px;
+    display: inline-block;
+    width:100%;
+    margin-bottom: 20px;;
+}
+.content_area {
+    width: 80% !important;
+    display: inline-block !important;
+}
+.sendEmailForm {
+    background-color:white;
+    color:black;
+    padding:15px;
+}
+.writeMessageHeader {
+    font-size: 24px;
+    margin-left: 20px;
+}
+.sendEmailForm>div>.form-control {
+    border: 1px solid #ccc !important;
+}
+.email_body {
+    padding: 20px;;   
 }
