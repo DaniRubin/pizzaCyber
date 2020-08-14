@@ -46,7 +46,7 @@
                     };
 
                     if (params.newPassword.length < 8) {
-                        alert("new password is too short");
+                        alert("The new password you entered is too short, it must be at least 8 characters");
                         return;
                     }
 
@@ -117,26 +117,23 @@
                     var password_confirm = $('#register_password_confirm').val();
 
                     if (name.search(/[^a-z0-9]/g) > -1) {
-                        errors.push("Please choose a username which only contains lower case letter or number characters");
+                        errors.push("Your username must contain only lowercase letters or numbers");
                     }
                     if (name.length === 0) {
-                        errors.push("Please choose a non-empty user name");
+                        errors.push("Please enter a username");
                     }
                     if (email.length === 0) {
-                        errors.push("Please add an email");
+                        errors.push("Please enter an email address");
                     }
                     if ($('#register_email').is(":invalid")) {
-                        errors.push("email is invalid");
+                        errors.push("The email you entered is invalid");
                     }
-
                     if (password.length < 8) {
-                        errors.push("password is too short")
+                        errors.push("The password you entered is too short, it must be at least 8 characters")
                     }
-
                     if (password != password_confirm) {
-                        errors.push("password doesn't match password confirm");
+                        errors.push("The password and confirmation password do not match");
                     }
-
                     if (errors.length > 0) {
                         alert(errors.join("\n"));
                         return;
@@ -173,7 +170,7 @@
             controller: ['$http', function ($http) {
                 $('#charge_account_but').click(function () {
                     var amount = $("#charge_amount").val();
-                    var hasConfirmed = confirm('Please confirm: amount of ' + amount + '$ will be charged to your credit card?');
+                    var hasConfirmed = confirm('Your account will be charged ' + amount + '$. Please confirm');
                     if (hasConfirmed) {
                         $http.post('/charge_account',
                             {

@@ -4,8 +4,8 @@
   }
 
 .centered {
-    margin-right: 22%;
-    margin-left: 22%;
+    margin-right: 28%;
+    margin-left: 28%;
 }
 
 .navbar>.container-fluid {
@@ -41,7 +41,7 @@ label {
 }
 .form-control {
     font-size: 18px !important;
-    border: 1px solid #1C1C1C;
+    border: 1px solid #b7b7b7;
 
 }
 button.close:focus {
@@ -63,16 +63,26 @@ button.close:focus {
 
 .email_header {
     padding-top: 15px;
-    background: rgba(255, 255, 2555, 0.1);
+    padding-bottom: 15px;
+    background: rgba(255, 255, 255, 0.1);
     margin-bottom: 10px;
     cursor: pointer;
+    color:white;
 }
 .email_header:hover {
-    background: rgba(255, 255, 2555, 0.4);
+    background: rgba(255, 255, 255, 0.4);
 }
+.inbox_header_content:hover {
+    text-decoration: none !important;
+}
+.inbox_header_content:active {
+    text-decoration: none !important;
+}
+
 
 .email_unread {
     font-weight: bold;
+    background: rgba(0, 0, 255, 0.1);
 }
 
 .email_table {
@@ -95,7 +105,7 @@ button.close:focus {
     overflow-y: auto;
     text-align: center;
     padding-left: 10px;
-    padding-right: 20px;
+    padding-right: 10px;
 }
 
 .compose_form {
@@ -205,8 +215,8 @@ a {
 }
 .header-image{
     padding: 7px;
-    width: 200px;
-    height: 200px;
+    width: 270px;
+    height: 270px;
     margin-top: 5px;
     position: absolute;
     margin-left: 15px !important;
@@ -356,19 +366,27 @@ a {
 
 .modal-content {
     border-radius: 0px !important;
+    margin-top: 100px;
 }
 .currentData {
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: #1C1C1C solid 2px;
+    border-bottom: #b7b7b7 solid 2px;
 }
-
+.open>.dropdown-menu {
+    display: block;
+    /* margin-top: 30px; */
+    font-size: 18px;
+}
+#charge_account_dialog_but { 
+    padding-top: 6px;
+}
 
 .orderHistory {
     padding: 20px 30px !important;
     border: none;
-    border-bottom: #ddd 1px solid !important;
-    border-top: #ddd 1px solid !important;
+    border-bottom: #b7b7b7 1px solid !important;
+    border-top: #b7b7b7 1px solid !important;
     background-color: black;
 }
 .history_name {
@@ -379,6 +397,7 @@ a {
 }
 .history_date {
     margin-left: 100px;
+    color: #999999
 }
 .history_money {
     color: white;
@@ -392,13 +411,16 @@ a {
     color:black;
     border-radius: 0px;
     padding: 20px;
+    padding-top: 25px;
+    font-size: 23px !important;
     margin-bottom: 20px;
+    line-height: 25px;
 }
 .success {
-    background-color: green;
+    background-color: #56b440ff;
 }
 .danger {
-    background-color: red;
+    background-color: #fe4c47ff;
 }
 
 
@@ -419,13 +441,13 @@ a {
     margin-bottom: 20px;;
 }
 .content_area {
-    width: 80% !important;
+    width: 70% !important;
     display: inline-block !important;
 }
 .sendEmailForm {
     background-color:white;
     color:black;
-    padding:15px;
+    padding:25px;
 }
 .writeMessageHeader {
     font-size: 24px;
@@ -435,5 +457,5 @@ a {
     border: 1px solid #ccc !important;
 }
 .email_body {
-    padding: 20px;;   
+    padding: 40px;
 }

@@ -21,12 +21,12 @@
             <form action="/messages" method="get" class="compose_form">
                 <div class="form-group sendEmailForm">
                     <div class="to_part">
-                        <label for="new_message_to" style="width: 6%;">To:</label>
+                        <label for="new_message_to" style="margin-right: 5px;">To:</label>
                         <input type="text" class="form-control content_area" name="to_user" id="new_message_to"
                             placeholder="Enter username">
                     </div>
                     <div class="subject_part">
-                        <label for="new_message_subject" style="width: 15%;">Subject:</label>
+                        <label for="new_message_subject" style="margin-right: 5px;">Subject:</label>
                         <input type="text" class="form-control content_area" name="subject" id="new_message_subject"
                             placeholder="Enter subject">
                     </div>
@@ -34,16 +34,13 @@
                         <textarea class="form-control" name="message_text" id="new_message_body" rows="5"
                             placeholder="Write your message"></textarea>
                     </div>
-                    <button id="send_email_but" class="mainButton">Send!</button>
+                    <button id="send_email_but" class="mainButton">Send</button>
                 </div>
             </form>
         </td>
         <!-- <td width="30"></td> -->
     </tr>
 </table>
-
-<hr />
-<hr />
 
 
 
@@ -53,6 +50,8 @@
             <h4 style="color: #ffffff" class="writeMessageHeader">Write a new message</h4>
         </td> -->
     <!-- </tr> -->
+    <h4 style="color: #ffffff" class="writeMessageHeader">Inbox</h4>
+
     <tr>
         <td class="left_column" height="10%" width="30%" valign="top">
             <div class="email_headers">
@@ -64,8 +63,8 @@
                     <div class="email_header" id="message_id_{{ message.id }}_header"
                         onclick="toggleEmailBody('{{ message.id }}', false)">
                         {% endif %}
-                        <a href="/messages/{{ message.id }}"><span><b>{{ message.from_user }}</b></span> <br />
-                            <span>{{ message.subject }}</span></a>
+                        <span><b>{{ message.from_user }}</b></span> <br />
+                        <span>{{ message.subject }}</span>
                     </div>
                     <!-- <hr /> -->
                     {% endfor %}
@@ -80,7 +79,8 @@
         </td>
     </tr>
 </table>
-<hr />
-
-<hr />
+<br role="presentation" />
+<br role="presentation" />
+<!-- <hr />
+<hr /> -->
 {% endblock %}

@@ -154,16 +154,16 @@ def emptyDB():
 
 def init_db():
     admin_role = user_datastore.create_role(name='vip', description='Pizza VIP')
-    first_user = user_datastore.create_user(email='getpizza@PizzaLuigi.pw', user_name="PizzaLuigi", is_vip=True,
+    first_user = user_datastore.create_user(email='getpizza@pizzaluigi.pw', user_name="pizzaluigi", is_vip=True,
                                             password=utils.encrypt_password('pa55word'))
     second_user = user_datastore.create_user(email='lior@pizzaplace.com', user_name="garso",
                                              password=utils.encrypt_password('pa55word'))
     db.session.add_all([        	
-        Food(type=FoodType.PIZZA, image_url="ROMA pizza.png", food_name="pizza ROMA", price_in_dollars=10,	
+        Food(type=FoodType.PIZZA, image_url="ROMA pizza.png", food_name="Pizza Roma", price_in_dollars=10,	
              id=554793),	
-        Food(type=FoodType.PIZZA, image_url="VENIVE pizza.png", food_name="pizza VENIVE", price_in_dollars=15,	
+        Food(type=FoodType.PIZZA, image_url="VENIVE pizza.png", food_name="Pizza Venezia", price_in_dollars=15,	
              id=6979634),	
-        Food(type=FoodType.PIZZA, image_url="TOSCANNA pizza.png", food_name="pizza TOSCANNA", price_in_dollars=20,	
+        Food(type=FoodType.PIZZA, image_url="TOSCANNA pizza.png", food_name="Pizza Toscana", price_in_dollars=20,	
              id=7354477),	
         Food(type=FoodType.SIDE, image_url="cola.png", food_name="Coke 0.5L", price_in_dollars=3,	
              id=5698744),	
@@ -171,9 +171,9 @@ def init_db():
              id=6546869),	
         Food(type=FoodType.SIDE, image_url="garlic-bread.png", food_name="Garlic Bread", price_in_dollars=7,	
              id=7346795),
-        Food(type=FoodType.SALE, image_url="AMERICA pizza.png", food_name="pizza AMERICA", price_in_dollars=0,
+        Food(type=FoodType.SALE, image_url="AMERICA pizza.png", food_name="Pizza America", price_in_dollars=0,
              id=9574123),
-        Food(type=FoodType.SPECIAL, image_url="TOSCANNA pizza.png", food_name="pizza TOSCANNA", price_in_dollars=5,
+        Food(type=FoodType.SPECIAL, image_url="TOSCANNA pizza.png", food_name="Pizza Toscana", price_in_dollars=5,
              id=1337)
     ])
 
@@ -182,7 +182,7 @@ def init_db():
 @app.before_first_request
 def create_user():
     db.create_all()
-    if not user_datastore.get_user('getpizza@PizzaLuigi.pw'):
+    if not user_datastore.get_user('getpizza@pizzaluigi.pw'):
         emptyDB()
         init_db()
 
@@ -467,15 +467,15 @@ def OrderFood(food_type, food_id, discount, inner=False):
             server_message = "The {!s} you ordered is on its way!".format(desired_food.food_name)
 
             if has_vip_discount:
-                server_message += "You've got our VIP discount of {!s}%".format(VIP_DISCOUNT * 100)
+                server_message += " You got our VIP discount of {!s}%".format(VIP_DISCOUNT * 100)
 
             if discount > 0:
-                server_message += " and you got another" if has_vip_discount else " You got a"
-                server_message += " discount of {!s}%".format(discount_percent * 100)
-            server_message += ". You paid ${!s}".format(desired_food_price)
+                server_message += " and after another " if has_vip_discount else " After a"
+                server_message += " {!s}% discount ".format(discount_percent * 100)
+            server_message += " you paid ${!s}".format(desired_food_price)
         else:
             if len(user.order_history) > USER_MAX_ORDER:
-                err_message = ("This might be just a little too much pizza, ha?")
+                err_message = ("This might be just a little too much pizza, don't you think?")
             else:
                 err_message = ("Your current balance is not sufficient for this order."
                                " Please charge up your account or ask a friend to transfer some credit ")
@@ -575,18 +575,18 @@ def register():
         db.session.commit()
 
         to_user_id = user.id
-        admin_id = User.query.filter_by(user_name="PizzaLuigi").one().id
+        admin_id = User.query.filter_by(user_name="pizzaluigi").one().id
         message = Message.FromDict(dict(
             from_user_id=admin_id,
             to_user_id=to_user_id,
             subject="Welcome to Pizza Luigi",
 
-            message_text=""""Welcome! We're so happy to see you here!<br/><br/>
+            message_text="""Welcome! We're so happy to see you here!<br/><br/>
                              As a new member we invite you to enjoy your first pizza with a special offer -
                              <br/><br/>
-                             <a href='/?enableSpecial=1'>Get your $5 pizza here!</a>!
+                             <a href='/?enableSpecial=1'>Get your $5 pizza here!</a>
                              <br/><br/>
-                             <small>(Valid for 1 purchase only)</small>"""
+                             <small>(Valid for one purchase only)</small>"""
         ))
 
         db.session.add(message)

@@ -191,6 +191,7 @@ $(document).ready(function () {
 });
 
 function toggleEmailBody(emailId, unread) {
+    window.location.href = '/messages/' + emailId;
     if (unread) {
         $('#message_id_' + emailId + '_header').removeClass('email_unread');
         var userId = $('#logged_in_user_id').val();

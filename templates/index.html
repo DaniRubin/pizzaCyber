@@ -47,7 +47,7 @@
                 <ul class="nav navbar-nav">
 
                     <div class="loginAndRegisterSection">
-                        <span id="account_balance">Current Balance: ${{ user_balance }} </span>&nbsp;
+                        <span id="account_balance">Current Balance: ${{ user_balance }} </span>&nbsp;&nbsp;&nbsp;
                         <div class="mainPageLink dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-expanded="false">Credit<span class="caret"></span></a>
@@ -56,9 +56,9 @@
                                 <li class="divider"></li>
                                 <li><a id="transfer_money_dialog_but" href="#">Transfer Credit</a></li>
                             </ul>
-                        </div>&nbsp;
+                        </div>&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="mainPageLink"><a id="order_hostory_but" href="/history?get={{ user_id }}">Order
-                                History</a></span>&nbsp;&nbsp;
+                                History</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="mainPageLink"><a id="inbox_but" href="/messages">Inbox
                                 ({{ num_unread_messages }})</a></span>
                     </div>
@@ -68,21 +68,21 @@
                 <ul class="nav navbar-nav navbar-right">
                     {% if user_id %}
                     <div class="loginAndRegisterSection">
-                        Welcome {{ user_name }} &nbsp;
+                        Welcome {{ user_name }} &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="mainPageLink dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-expanded="false">Settings<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a id="change_passowrd_but" href="#">Change Password</a></li>
                             </ul>
-                        </div>&nbsp;
+                        </div>&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="mainPageLink"><a href="/logout">Logout</a></span>
                     </div>
                     {% else %}
                     <div class="loginAndRegisterSection">
                         Join our community!
-                        <span class="mainPageLink" id="register_but">Sign up</span>
-                        Or
+                        <span class="mainPageLink" id="register_but">Sign Up</span>
+                        or
                         <span class="mainPageLink" id="login_but">Login</span>
                     </div>
                     {% endif %}
