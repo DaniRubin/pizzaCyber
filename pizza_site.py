@@ -467,12 +467,12 @@ def OrderFood(food_type, food_id, discount, inner=False):
             server_message = "The {!s} you ordered is on its way!".format(desired_food.food_name)
 
             if has_vip_discount:
-                server_message += " You got our VIP discount of {!s}%".format(VIP_DISCOUNT * 100)
+                server_message += " You got our VIP discount of {!s}%!".format(VIP_DISCOUNT * 100)
 
             if discount > 0:
-                server_message += " and after another " if has_vip_discount else " After a"
-                server_message += " {!s}% discount ".format(discount_percent * 100)
-            server_message += " you paid ${!s}".format(desired_food_price)
+                server_message += " You got another " if has_vip_discount else " You got a"
+                server_message += " {!s}% discount! ".format(discount_percent * 100)
+            server_message += " You paid ${!s}".format(desired_food_price)
         else:
             if len(user.order_history) > USER_MAX_ORDER:
                 err_message = ("This might be just a little too much pizza, don't you think?")

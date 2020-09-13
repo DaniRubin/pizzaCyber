@@ -91,13 +91,19 @@
         </div>
     </nav>
 
+    {% if user_is_vip %}
+    <img src="/static/images/VIP.png" class="side-image-right" alt="vip user image" style="margin-top: -40px;" />
     <div>
         <!-- We are watching you...  -->
         <a href="/mobile_promotion"><img src="/static/images/appAdd.png" class="side-image-right"
-                alt="mobile promotion image" style="display:box" /></a>
+                alt="mobile promotion image" style="margin-top:180px;" /></a>
     </div>
-    {% if user_is_vip %}
-    <img src="/static/images/vip.jpg" class="side-image-right" alt="vip user image" />
+    {% else %}
+    <div>
+        <!-- We are watching you...  -->
+        <a href="/mobile_promotion"><img src="/static/images/appAdd.png" class="side-image-right"
+                alt="mobile promotion image" /></a>
+    </div>
     {%endif%}
 
     <div id="load_spinner" class="modal fade">
@@ -141,7 +147,9 @@
         <dishes-tabs></dishes-tabs>
         {% endblock %}
     </div>
-
+    <div class="logos_footer">
+        <img src="/static/images/logos.png" height="60px" alt="logos" />
+    </div>
 </body>
 
 </html>

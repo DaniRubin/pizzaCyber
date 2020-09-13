@@ -199,6 +199,7 @@ function toggleEmailBody(emailId, unread) {
             updateInboxUnread(data.unread_messages);
         });
     }
+
 }
 
 function postForm(path, params, method) {

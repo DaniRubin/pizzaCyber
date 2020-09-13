@@ -60,18 +60,6 @@ button.close:focus {
 .email_body a{
     color: blue;
 }
-
-.email_header {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    background: rgba(255, 255, 255, 0.1);
-    margin-bottom: 10px;
-    cursor: pointer;
-    color:white;
-}
-.email_header:hover {
-    background: rgba(255, 255, 255, 0.4);
-}
 .inbox_header_content:hover {
     text-decoration: none !important;
 }
@@ -80,9 +68,27 @@ button.close:focus {
 }
 
 
+
+.email_header {
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+    cursor: pointer;
+    color:white;
+    line-height: 25px;
+    padding: 15px 0px 15px 15px;
+    text-align: left;
+}
+.email_header:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+.email_active {
+    background-color: white !important;
+    color:black !important;
+}
 .email_unread {
     font-weight: bold;
-    background: rgba(0, 0, 255, 0.1);
+    color: #FFC926 !important;
+    /* background: rgba(0, 0, 255, 0.1); */
 }
 
 .email_table {
@@ -109,12 +115,12 @@ button.close:focus {
 }
 
 .compose_form {
-    padding: 10px;
+    /* padding: 10px; */
     width: 100%;
 }
 
 body {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 300;
     line-height: 19px;
     margin: 0;
@@ -243,7 +249,7 @@ a {
     height:40px;
 }
 .navbar-collapse {
-    padding-left:200px !important;
+    padding-left:270px !important;
 }
 .mainButton {
     background-color: #1C1C1C;
@@ -253,6 +259,7 @@ a {
     border: none;
     border-radius: 0px;
     font-weight: bold;
+    margin-left: 10px;
 }
 .buttonRegister {
     font-size:20px;
@@ -331,6 +338,7 @@ a {
 }
 .checkbox label{
     font-size: 16px !important;
+    margin-left:10px;
 }
 .list-group-item{
     padding: 15px !important;
@@ -372,11 +380,12 @@ a {
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: #b7b7b7 solid 2px;
+    line-height: 30px;
 }
 .open>.dropdown-menu {
     display: block;
     /* margin-top: 30px; */
-    font-size: 18px;
+    font-size: 20px;
 }
 #charge_account_dialog_but { 
     padding-top: 6px;
@@ -412,9 +421,9 @@ a {
     border-radius: 0px;
     padding: 20px;
     padding-top: 25px;
-    font-size: 23px !important;
+    font-size: 25px !important;
     margin-bottom: 20px;
-    line-height: 25px;
+    line-height: 30px;
 }
 .success {
     background-color: #56b440ff;
@@ -450,7 +459,7 @@ a {
     padding:25px;
 }
 .writeMessageHeader {
-    font-size: 24px;
+    font-size: 32px;
     margin-left: 20px;
 }
 .sendEmailForm>div>.form-control {
@@ -458,4 +467,13 @@ a {
 }
 .email_body {
     padding: 40px;
+}
+.logos_footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    height:60px;
 }
