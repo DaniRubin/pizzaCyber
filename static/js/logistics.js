@@ -46,7 +46,7 @@
                     };
 
                     if (params.newPassword.length < 8) {
-                        alert("The new password you entered is too short, it must be at least 8 characters");
+                        alert("The new password is the same as your current password");
                         return;
                     }
 
@@ -57,9 +57,12 @@
                                 window.location.reload();
                                 return;
                             }
-
-
-                            alert("failed to change password");
+                            if (data.same_password) {
+                                alert("The new and old password are the same");
+                            }
+                            else {
+                                alert("failed to change password");
+                            }
                         });
                 });
             }
@@ -90,7 +93,16 @@
                                 window.location.reload();
                                 return;
                             }
-                            alert("failed to login");
+                            if (data.missingAll) {
+                                alert("Please enter your username and password");
+                            }
+                            else if (data.missingPassword) {
+                                alert("Please enter your password");
+                            }
+                            else if (data.missingUsername) {
+                                alert("Please enter your username");
+                            }
+                            else alert("failed to login");
                         });
                 });
             }
@@ -170,7 +182,7 @@
             controller: ['$http', function ($http) {
                 $('#charge_account_but').click(function () {
                     var amount = $("#charge_amount").val();
-                    var hasConfirmed = confirm('Your account will be charged ' + amount + '$. Please confirm');
+                    var hasConfirmed = confirm('Your account will be charged $' + amount + '. Please confirm');
                     if (hasConfirmed) {
                         $http.post('/charge_account',
                             {

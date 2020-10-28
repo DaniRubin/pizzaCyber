@@ -52,6 +52,9 @@ button.close:focus {
     opacity: 1 !important;
     text-shadow: none !important;
 }
+.close:hover {
+    color: white !important;
+}
 
 .email_headers {
     height: 400px !important;
@@ -86,7 +89,7 @@ button.close:focus {
     color:black !important;
 }
 .email_unread {
-    font-weight: bold;
+    /* font-weight: bold; */
     color: #FFC926 !important;
     /* background: rgba(0, 0, 255, 0.1); */
 }
@@ -199,6 +202,7 @@ body {
 }
 .nav-tabs>li>a:hover {
     background-color: #FFC926;
+    color:white;
     border: none;
 }
 a {
@@ -221,13 +225,20 @@ a {
 }
 .header-image{
     padding: 7px;
-    width: 270px;
-    height: 270px;
+    /* width: 270px; */
+    height: 15em;
+    object-fit: contain;
     margin-top: 5px;
     position: absolute;
     margin-left: 15px !important;
     border-radius: 20px;
-}   
+}  
+.home_logo {
+    position: absolute;
+    height: 40px;
+    margin-top:25px;
+    margin-left:10px;
+} 
 .navbar-main {
     height:90px;
     margin-bottom: 60px;
@@ -249,7 +260,7 @@ a {
     height:40px;
 }
 .navbar-collapse {
-    padding-left:270px !important;
+    padding-left:15% !important;
 }
 .mainButton {
     background-color: #1C1C1C;
@@ -399,17 +410,20 @@ a {
     background-color: black;
 }
 .history_name {
-    width: 200px;
+    width: 40%;
     display: inline-block;
     color:white;
     font-weight: bold;
 }
 .history_date {
-    margin-left: 100px;
-    color: #999999
+    color: #999999;
+    display: inline-block;
+    width: 30%;
 }
 .history_money {
     color: white;
+    float: right;
+    display: inline-block;
 }
 .modal-backdrop {
     opacity: 0.7 !important;

@@ -69,9 +69,17 @@ class ExtendedRegisterForm(RegisterForm):
         # Use standard validator
         validation = RegisterForm.validate(self)
         validation_result = validateUser(self.data["user_name"], self.data["email"])
-
+        try:
+            self.email.errors.remove(self.data["email"]+" is already associated with an account.")
+        except:
+            pass
+        if "Invalid email address" in self.email.errors:
+            self.email.errors.remove("Invalid email address")
+            self.email.errors.append("The email you entered is invalid")
         if validation_result["is_user_taken"]:
-            self.email.errors.append("username already taken")
+            self.email.errors.append("The username "+self.data["user_name"]+" you entered is already taken, please choose another one")
+        if validation_result["is_email_taken"]:
+            self.email.errors.append("The email "+self.data["email"]+" you entered is already taken, please choose another one")
 
         if self.is_vip.data is None:
             self.is_vip.errors.append("no vip data")
@@ -260,7 +268,7 @@ def validateUser(user_name, email):
     found_user = User.query.filter_by(user_name=user_name).first() is not None
     found_email = User.query.filter_by(email=email).first() is not None
 
-    print "found user", found_email
+    print "found user", found_user
     print "found email", found_email
     return dict(is_user_taken=found_user, is_email_taken=found_email, success=not (found_user or found_email))
 
@@ -316,7 +324,7 @@ def ChargeAccount():
     user.account_balance += desired_amount
     db.session.commit()
     return jsonify(dict(success=True,
-                        server_message="You added ${!s} to your account".format(desired_amount),
+                        server_message="You added {!s}$ to your account".format(desired_amount),
                         err_message=err_message,
                         account_balance=user.account_balance))
 
@@ -393,6 +401,7 @@ def OrderHistory():
         if found_user:
             order_history = [order.ToDict() for order in found_user.order_history]
             user_name = found_user.user_name
+            order_history.reverse()
     except (NoResultFound, MultipleResultsFound), e:
         order_history = dict()
     user_data_dict.update(dict(order_history=order_history, order_user_name=user_name))
@@ -518,8 +527,12 @@ def login():
     print 'in custom login'
     user_name = request.form.get("user_name")
     password = request.form.get("password")
-    if not password or not user_name:
-        return jsonify(dict(success=False))
+    if not password and not user_name:
+        return jsonify(dict(success=False, missingAll=True))
+    elif not password:
+        return jsonify(dict(success=False, missingPassword=True))
+    elif not user_name:
+        return jsonify(dict(success=False, missingUsername=True))
 
     print(IS_SQL_INJECTION)
 
@@ -548,6 +561,10 @@ def login():
 def change():
     password = request.form["password"]
     new_password = request.form["newPassword"]
+
+    if new_password == password: 
+        return jsonify(dict(success=False, same_password=True))
+
     if not password or not new_password:
         return jsonify(dict(success=False))
 
@@ -582,7 +599,7 @@ def register():
             subject="Welcome to Pizza Luigi",
 
             message_text="""Welcome! We're so happy to see you here!<br/><br/>
-                             As a new member we invite you to enjoy your first pizza with a special offer -
+                             As a new member we invite you to enjoy a pizza with a special offer -
                              <br/><br/>
                              <a href='/?enableSpecial=1'>Get your $5 pizza here!</a>
                              <br/><br/>
@@ -649,6 +666,7 @@ def GetSidesSelections():
 @login_required
 @LogRequestDuration
 def UpdateUserMessage(message_id):
+    print "Fucking here!"
     user = g.current_user
     try:
         message = Message.query.filter_by(id=message_id).one()
@@ -697,7 +715,17 @@ def MessageView(requested_message_id):
             db.session.add(message)
             db.session.commit()
             success = True
-            server_message = "Your message was sent to {!s}!".format(message.to_user.user_name)
+            if user.id == to_user_id:
+                server_message = "Your message to yourself was sent!"
+            else:
+                server_message = "Your message was sent to {!s}!".format(message.to_user.user_name)
+            
+            user_data_dict.update(dict(success=success,
+                                       err_message=err_message,
+                                       server_message=server_message))
+            print("DO THAT!")
+            return render_template("inbox.html", **user_data_dict)
+
         except (NoResultFound, MultipleResultsFound), e:
             err_message = "Sorry, could not find the user you wanted to message"
             success = False
