@@ -491,3 +491,60 @@ a {
     text-align: center;
     height:60px;
 }
+
+
+
+/* About us modal */
+#openAboutUs {
+    position: absolute;
+    right:20px;
+    bottom:20px;
+    padding:10px;
+    border-radius: 10px;
+}
+/* The Modal (background) */
+.modal-aboutUS {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content-aboutUS {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+  }
+  .modal-header-aboutUS {
+    border-bottom: black solid 2px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  .aboutUS-header {
+    font-size: 40px;
+    text-align: center;
+}
+  /* The Close Button */
+  #closeAboutUS {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  #closeAboutUS:hover,
+  #closeAboutUS:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }

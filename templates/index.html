@@ -20,6 +20,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/app.js')}}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/logistics.js')}}"></script>
 
+
 <meta charset="UTF-8">
 <title>PizzaLuigi</title>
 {% endblock %}
@@ -145,6 +146,18 @@
     </div>
     <dishes-tabs></dishes-tabs>
     {% endblock %}
+  </div>
+
+
+  <button id="openAboutUs" onclick="document.getElementById('aboutus').style.display = 'block'">Cradentials</button>
+  <div id='aboutus' class="modal-aboutUS" onclick="document.getElementById('aboutus').style.display = 'none'">
+    <div class=" modal-content-aboutUS">
+      <div class="modal-header-aboutUS">
+        <span class="aboutUS-header">Who are we?</span>
+        <span id="closeAboutUS" onclick="document.getElementById('aboutus').style.display = 'none'">X</span>
+      </div>
+      <center><img src="/static/images/logos.png" height="60px" alt="logos" /></center>
+    </div>
   </div>
   <!-- <div class="logos_footer">
         <img src="/static/images/logos.png" height="60px" alt="logos" />
