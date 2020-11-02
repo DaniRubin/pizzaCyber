@@ -46,7 +46,7 @@
                     };
 
                     if (params.newPassword.length < 8) {
-                        alert("The new password is the same as your current password");
+                        alert("The new password is too short");
                         return;
                     }
 
