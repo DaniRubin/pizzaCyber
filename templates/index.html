@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="../static/css/pizza.css">
 <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;700&display=swap" rel="stylesheet">
-
+<link href='https://fonts.googleapis.com/css?family=Heebo' rel='stylesheet'>
 
 
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
@@ -41,7 +41,11 @@
         </button>
         <!--<a class="navbar-brand" href="/">PizzaPlace!</a>-->
         <a href="/"><img src="/static/images/home.png" class="home_logo" alt="home logo" /> </a>
-        <a href="/"><img src="/static/images/logo.png" class="navbar-brand header-image" alt="luigi pizza logo" /></a>
+
+        <a href="/">
+          <div><img src="/static/images/logo.png" class="navbar-brand header-image" alt="luigi pizza logo" /></div>
+        </a>
+
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         {% if user_id %}
@@ -93,11 +97,11 @@
   </nav>
 
   {% if user_is_vip %}
-  <img src="/static/images/VIP.png" class="side-image-right" alt="vip user image" style="margin-top: -40px;" />
+  <img src="/static/images/VIP.png" class="side-image-right" alt="vip user image" style="margin-top: -60px;" />
   <div>
     <!-- We are watching you...  -->
     <a href="/mobile_promotion"><img src="/static/images/appAdd.png" class="side-image-right"
-        alt="mobile promotion image" style="margin-top:180px;" /></a>
+        alt="mobile promotion image" style="margin-top:100px;" /></a>
   </div>
   {% else %}
   <div>
@@ -149,14 +153,15 @@
   </div>
 
 
-  <button id="openAboutUs" onclick="document.getElementById('aboutus').style.display = 'block'">Cradentials</button>
+  <button id="openAboutUs" onclick="document.getElementById('aboutus').style.display = 'block'">Credit</button>
   <div id='aboutus' class="modal-aboutUS" onclick="document.getElementById('aboutus').style.display = 'none'">
-    <div class=" modal-content-aboutUS">
+    <div class="modal-content-aboutUS">
       <div class="modal-header-aboutUS">
-        <span class="aboutUS-header">Who are we?</span>
-        <span id="closeAboutUS" onclick="document.getElementById('aboutus').style.display = 'none'">X</span>
+        <center><span class="aboutUS-header">האתר פותח על ידי המרכז לחינוך סייבר</span></center>
+        <!-- <span id="closeAboutUS" onclick="document.getElementById('aboutus').style.display = 'none'">X</span> -->
       </div>
-      <center><img src="/static/images/logos.png" height="60px" alt="logos" /></center>
+      <center><img src="/static/images/logos.png" width="300px" alt="logos" /></center>
+
     </div>
   </div>
   <!-- <div class="logos_footer">

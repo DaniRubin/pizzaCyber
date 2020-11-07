@@ -245,6 +245,16 @@ a {
     background-color: #FFC926;
     background:#FFC926;
 }
+@media only screen and (max-width: 1126px) {
+  .navbar-main {
+      height:130px;
+  }
+}
+@media only screen and (max-width: 990px) {
+  .dish {
+    height: 220px !important;
+  }
+}
 .buyNowButton {
     background-color: #FFC926;
     padding: 10px 20px;
@@ -284,7 +294,7 @@ a {
     border-radius: 0px !important;
 }
 .navbar-right {
-    margin-right: 50px !important;
+    margin-right: 10px !important;
 }
 .navbar-nav>li {
     background-color: #FFC926;
@@ -531,8 +541,9 @@ a {
     margin-bottom: 20px;
   }
   .aboutUS-header {
-    font-size: 40px;
+    font-size: 30px;
     text-align: center;
+    font-family: 'Heebo' !important;
 }
   /* The Close Button */
   #closeAboutUS {
