@@ -173,7 +173,7 @@ def init_db():
              id=6979634),	
         Food(type=FoodType.PIZZA, image_url="TOSCANNA pizza.png", food_name="Pizza Toscana", price_in_dollars=20,	
              id=7354477),	
-        Food(type=FoodType.SIDE, image_url="cola.png", food_name="Coke 0.5L", price_in_dollars=3,	
+        Food(type=FoodType.SIDE, image_url="cola2.png", food_name="Coke 0.5L", price_in_dollars=3,	
              id=5698744),	
         Food(type=FoodType.SIDE, image_url="icecream.png", food_name="Ice Cream", price_in_dollars=5,	
              id=6546869),	
