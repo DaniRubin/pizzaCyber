@@ -79,7 +79,7 @@ class ExtendedRegisterForm(RegisterForm):
         if validation_result["is_user_taken"]:
             self.email.errors.append("The username "+self.data["user_name"]+" you entered is already taken, please choose another one")
         if validation_result["is_email_taken"]:
-            self.email.errors.append("The email "+self.data["email"]+" you entered is already taken, please choose another one")
+            self.email.errors.append("The email "+self.data["email"]+" you entered is already associated with another account")
 
         if self.is_vip.data is None:
             self.is_vip.errors.append("no vip data")
@@ -150,7 +150,6 @@ def LogRequestDuration(func):
 
     return TimeTheFunction
 
-
 def emptyDB():
     db.session.query(Message).delete()
     db.session.query(FoodOrder).delete()
@@ -160,12 +159,43 @@ def emptyDB():
     db.session.query(Food).delete()
     db.session.commit()
 
+# emptyDB()
+
 def init_db():
+    print("Initializing!!")
     admin_role = user_datastore.create_role(name='vip', description='Pizza VIP')
+
+    antonio = user_datastore.create_user(email='antonio7@gmail.com', user_name="antonio7",
+                                             password='An7on!0HasaGreatP455')
+    mariano = user_datastore.create_user(email='mariano@gmail.com', user_name="mariano",
+                                            password='SupErMar!0isTheB0ss')
     first_user = user_datastore.create_user(email='getpizza@pizzaluigi.pw', user_name="pizzaluigi", is_vip=True,
                                             password=utils.encrypt_password('pa55word'))
     second_user = user_datastore.create_user(email='lior@pizzaplace.com', user_name="garso",
                                              password=utils.encrypt_password('pa55word'))
+   
+    Dani = user_datastore.create_user(email='dani@gmail.com', user_name="danir",
+                                            password=12345678)
+
+    antonio_id = User.query.filter_by(user_name="antonio7").one().id
+    mariano_id = User.query.filter_by(user_name="mariano").one().id
+
+    # admin_id = User.query.filter_by(user_name="pizzaluigi").one().id
+    message = Message.FromDict(dict(
+        from_user_id=mariano_id,
+        to_user_id=antonio_id,
+        subject="robbery",
+        message_text="""Hi Antonio,<br/><br/>
+                        We are so lucky that the police didn't catch us after the robbery! <br/><br/>
+                        I kept our <b>1555554</b> dollars in a bag. You'll get your share as soon as I get to Milan. <br/><br/>
+                        See you soon,<br/><br/>
+                        Mario"""
+    ))
+
+    db.session.add(message)
+
+    # db.session.commit()
+
     db.session.add_all([        	
         Food(type=FoodType.PIZZA, image_url="ROMA pizza.png", food_name="Pizza Roma", price_in_dollars=10,	
              id=554793),	
@@ -324,7 +354,7 @@ def ChargeAccount():
     user.account_balance += desired_amount
     db.session.commit()
     return jsonify(dict(success=True,
-                        server_message="You added {!s}$ to your account".format(desired_amount),
+                        server_message="You added ${!s} to your account".format(desired_amount),
                         err_message=err_message,
                         account_balance=user.account_balance))
 
@@ -537,10 +567,11 @@ def login():
     print(IS_SQL_INJECTION)
 
     # print("Is this magshimim project ?  - " + IS_MAGSHIMIM)
-    if(IS_SQL_INJECTION):
+    if(not IS_SQL_INJECTION):
         user = User.query.filter_by(user_name=user_name, password=password).first()
     else:
-        sqlLine = 'SELECT * FROM User WHERE password="'+password+'" AND user_name="'+user_name+'"'	
+        sqlLine = 'SELECT * FROM User WHERE user_name="'+user_name+'" AND password="'+password+'"'	
+        print(sqlLine)
         user = db.session.execute(sqlLine).first() 	
 
     print(user)

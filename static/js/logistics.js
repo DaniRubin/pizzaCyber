@@ -102,7 +102,7 @@
                             else if (data.missingUsername) {
                                 alert("Please enter your username");
                             }
-                            else alert("failed to login");
+                            else alert("The username and password do not match");
                         });
                 });
             }
