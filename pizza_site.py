@@ -159,21 +159,21 @@ def emptyDB():
     db.session.query(Food).delete()
     db.session.commit()
 
+#This must be removed!
 # emptyDB()
 
 def init_db():
     print("Initializing!!")
     admin_role = user_datastore.create_role(name='vip', description='Pizza VIP')
 
-    antonio = user_datastore.create_user(email='antonio7@gmail.com', user_name="antonio7",
-                                             password='An7on!0HasaGreatP455')
-    mariano = user_datastore.create_user(email='mariano@gmail.com', user_name="mariano",
-                                            password='SupErMar!0isTheB0ss')
     first_user = user_datastore.create_user(email='getpizza@pizzaluigi.pw', user_name="pizzaluigi", is_vip=True,
                                             password=utils.encrypt_password('pa55word'))
     second_user = user_datastore.create_user(email='lior@pizzaplace.com', user_name="garso",
                                              password=utils.encrypt_password('pa55word'))
-   
+    antonio = user_datastore.create_user(email='antonio7@gmail.com', user_name="antonio7",
+                                             password='An7on!0HasaGreatP455')
+    mariano = user_datastore.create_user(email='mariano@gmail.com', user_name="mariano",
+                                            password='SupErMar!0isTheB0ss')
     Dani = user_datastore.create_user(email='dani@gmail.com', user_name="danir",
                                             password=12345678)
 
@@ -570,9 +570,20 @@ def login():
     if(not IS_SQL_INJECTION):
         user = User.query.filter_by(user_name=user_name, password=password).first()
     else:
-        sqlLine = 'SELECT * FROM User WHERE user_name="'+user_name+'" AND password="'+password+'"'	
-        print(sqlLine)
-        user = db.session.execute(sqlLine).first() 	
+        try:
+            sqlLine = 'SELECT * FROM user WHERE user_name="'+user_name+'" AND password="'+password+'"'	
+            print(sqlLine)
+            users = list(db.session.execute(sqlLine))
+            if(len(users) >= 5):
+                for oneUser in users:
+                    if(oneUser[2] == user_name):
+                        user = oneUser
+            elif(len(users) > 0):
+                user = users[0]
+            else:
+                user = None
+        except:
+            user = None
 
     print(user)
 
