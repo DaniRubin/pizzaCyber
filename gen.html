@@ -1,0 +1,191 @@
+<!--
+  Last edit: 23.12.2020
+  By:        Dani Rubin
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>1.5.3</title>
+
+  <script src="/static/network_py.js"></script>
+  <script src="/static/popups_words_content.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/network_py.css">
+
+  <style>
+    .skeleton_icon {
+      content: url(https://s3.eu-west-1.amazonaws.com/data.cyber.org.il/virtual_courses/network.py/base_graphics/ICONS/icon%20skeleton.png);
+      background-color: #8737d3;
+      border: 2px white solid;
+      border-radius: 50%;
+      padding: 6px;
+      position: absolute;
+      margin-right: -55px;
+      height: 50px;
+      margin-top: -13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="problem">
+    <div role="img" aria-label="[שאלה]" class="outside">
+      <div class="outside_corners_question">
+        <div class="inside_corners_question question_icon_svg"></div>
+      </div>
+    </div>
+    <h2 class="my_h2">תרגיל: טיפול ראשוני בפרוטוקול</h2>
+    <p class="regular_text">
+      בקרוב התוכנה שלנו תוכל לדבר ברשת, ואנחנו כבר יודעים שכדי לתקשר בצורה טובה צריך ליצור שפה משותפת. השפה אותה התוכנה
+      תצטרך לדבר היא הפרוטוקול אותו הכרנו. על הקוד שלנו לבצע שתי משימות חשובות:
+    <ol class="list_pad">
+      <li>
+        לבנות את ההודעות בפורמט של הפרוטוקול - מאחר ורק אם נשלח את המידע בצורה מדויקת הצד השני יוכל לפענח את המידע
+        ששלחנו.
+      </li>
+      <li>
+        לפענח את ההודעות שהגיעו אלינו - כדי שנוכל להבין מה הייתה התגובה ולהדפיס הודעה מתאימה לשחקן או לבנות תשובה
+        מתאימה.
+      </li>
+    </ol>
+    <span style="padding-right: 25px">אבל הולכות להישלח הרבה הודעות! לא נרצה לעשות זאת כל פעם מחדש.. למה שלא נכתוב
+      פונקציות שיעשו את משימת התרגום</span>
+    <span style="padding-right: 25px;">עבורנו?</span>
+    </p>
+    <p class="regular_text">
+      בשלב זה ניצור ספרייה בשם chatlib.py אשר תנהל את כל נושא הפרוטוקול בקוד שלנו, כולל בניית ההודעות ותרגום ההודעות
+      שהגיעו. גם השרת וגם הלקוח ייעזרו בספרייה זו כדי לנהל את התקשורת.
+    </p>
+    <p class="regular_text">
+      לנוחיותכם, יצרנו עבורכם <strong>שלד</strong> עבור ספריית chatlib.
+    </p>
+    <p class="regular_text">
+      <strong>מהו שלד?</strong> שלד הוא קוד בסיסי המכיל "מסגרת" כללית לתכנית - הגדרה של משתנים חשובים, והגדרת שמות
+      הפונקציות וערכי הקבלה וההחזרה שלהן. בכל יחידה במשימה המתגלגלת תקבלו שלד בסיסי עליו תעבדו בכל משימות היחידה. <br
+        role="presentation" />
+      תבנית הקוד בשלד קיימת ומה שנותר לכם לעשות הוא לממש את הפונקציות השונות בהתאם להנחיות בתרגילים השונים.
+    </p>
+
+    <a href="/static/chatlib_skeleton_1.py" download="chatlib_skeleton.py">
+      <button type="button" class="network_py_button"
+        style="display: inline; width: 40%; margin-left: 30%; margin-right: 30%;">
+        <img class="skeleton_icon"> </img>
+
+        להורדת שלד chatlib לחצו כאן <span aria-hidden="true" class="download_icon">J</span>
+      </button>
+    </a>
+
+    <!-- חסר אייקון כתיבת פונקציה חדשה -->
+    <p class="regular_text">
+      נעבור למימוש פונקציות הספריה. כתבו את הפונקציות הבאות על פי תיעוד הפרוטוקול והשלד. שימו לב שבשלד עומדים לרשותכם
+      קבועים הקשורים לפרוטוקול, ומאוד מומלץ להשתמש בהם:
+    <ol class="list_pad">
+      <li>
+        הפונקציה <strong>split_msg</strong> - פונקציית עזר שמקבלת מחרוזת, וכמות "מפרידים", ומחזירה לנו את כמות המחרוזות
+        שציפינו לה אם ההודעה תקינה. אם ההודעה איננה תקינה, היא תחזיר רשימה מלאה באובייקט None. פונקציה זו יכולה לעזור
+        לנו
+        לטפל בהודעות ולוודא את התקינות שלהן, במקום לוודא עבור כל הודעה בנפרד שהיא תקינה (חשבו למשל על הודעת LOGIN. מה
+        היה
+        קורה לו ההודעה הייתה נראית כך: user|pas|s|a|a? - הקוד צריך לדעת להתמודד). פונקציה זו תשמש אותנו בהמשך כשנכתוב את
+        קוד השרת.
+      </li>
+      <li>
+        הפונקציה <strong>join_msg</strong> - פונקציה הפוכה ל-split_msg. מקבלת רשימה של ערכים ומחזירה מחרוזת מחוברת, כאשר
+        השדות מופרדים ע"י הסימן המפריד (אין לשים סימן מפריד בסוף המחרוזת). יש להתמודד גם עם רשימה שתכלול בתוכה int,
+        float
+        ולא רק מחרוזות. פונקציה זו תשמש אותנו בהמשך כשנכתוב את קוד השרת.
+      </li>
+      <li>
+        הפונקציה <strong>build_message</strong> - פונקציה זו תקבל את הפרמטרים הדרושים להרכבת ההודעה בפרוטוקול - cmd,
+        msg,
+        תחשב את אורך ההודעה ותחזיר מחרוזת של הבקשה בפורמט הפרוטוקול שבחרנו. במידה והתגלתה בעיה עם הנתונים שהתקבלו, יש
+        להחזיר None.
+        <!-- חסר דוגמת הרצה -->
+        <img style="margin:auto; width:200px; display: block;"
+          src="https://miro.medium.com/max/640/1*XthWUtD_NU-VJ7ESA2qX3A.jpeg" />
+      </li>
+      <li>
+        הפונקציה <strong>parse_message</strong> - פונקציה זו תקבל מחרוזת שהיא הודעה בפורמט הפרוטוקול שהתקבלה מהצד השני,
+        תפרק אותה ותפענח אותה למשתנים cmd ו-msg בהתאם למבנה הפרוטוקול ותחזיר אותם. במידה והתגלתה בעיה כלשהי עם ההודעה,
+        או
+        שהיא לא עומדת בכללי הפרוטוקול, יש להחזיר None, None.
+        <!-- חסר דוגמת הרצה -->
+        <img style="margin:auto; width:200px; display: block;"
+          src="https://miro.medium.com/max/640/1*XthWUtD_NU-VJ7ESA2qX3A.jpeg" />
+      </li>
+    </ol>
+    <span style="padding-right: 25px;">חשוב מאד - שימו לב למקרי קצה! מתי הפונקציה <strong>build_message</strong> עשויה
+      להכשל? מתי הפונקציה <strong>parse_message</strong> עשויה להכשל?</span>
+    <span style="padding-right: 25px;">האם יש קלטים בעייתים?</span>
+    </p>
+
+    <h3 class="my_h3">
+      מריצים ובודקים!
+    </h3>
+    <p class="regular_text">
+      צרו קובץ חדש זמני בשם test.py ושמרו אותו בתיקייה בה נמצאת ספרית chatlib.
+    </p>
+    <p class="regular_text">
+    <ul class="list_pad" style="list-style-type: square;">
+      <li>
+        בקובץ זה בצעו פקודת import לספריית chatlib באופן הבא: <br role="presentation" />
+        <div style="text-align: left; direction: ltr;">from chatlib import *</div>
+      </li>
+      <li>
+        כתבו מספר נסיונות לקריאה לפונקציות הספריה. לדוגמה: <br role="presentation" />
+        <div style="text-align: left;">
+          build_message(“LOGIN”,”user|pass”)<br role="presentation" />
+          parse_message(b”LOGIN <span style="margin-left: 4em;">| <span
+              style="margin-left: 1em;">8</span>|user|test”)</span>
+        </div>
+      </li>
+      <li>
+        חשבו על דוגמאות נוספות לתרחישים אותם תרצו לבדוק והתנסו בעבודה עם ספרית chatlib.
+      </li>
+      <li>
+        לאחר בדיקה ראשונית של הקוד, נעבור לבדיקה מקיפה יותר של נכונות הפונקציות שכתבתם באמצעות הקובץ
+        <strong>chatlib_test.py</strong>. קובץ הבדיקה יריץ עבורכם תרחישים שונים והודעות שונות בפרוטוקול ויסכם את תוצאות
+        הבדיקה והאם ישנה בדיקה בה הפונקציות לא עובדות כראוי.
+      </li>
+    </ul>
+    </p>
+    <p class="regular_text">
+      הורידו למחשבכם ושמרו את הקובץ chatlib_test.py באותה תיקייה שבה נמצא chatlib.py<br role="presentation" />
+      פתחו CMD מתוך תיקיה זו והריצו את כלי הבדיקה על ידי הקלדת המילה python ולאחר מכן כתיבת הנתיב המלא של הקובץ והמיקום
+      שלו (אם שמרתם לפי ההמלצות שלנו, הנתיב אמור להיות: c:\trivia\u1\chatlib.py)
+    <ul class="list_pad" style="list-style-type: square;">
+      <li>
+        python chatlib_test.py
+      </li>
+    </ul>
+    </p>
+
+    <!-- חסר דוגמאת ריצה מוצלחת ודוגמא עם שגיאות -->
+    <img style="margin:auto; width:200px; display: block;"
+      src="https://miro.medium.com/max/640/1*XthWUtD_NU-VJ7ESA2qX3A.jpeg" />
+
+    <ul class="list_pad" style="list-style-type: square;">
+      <li>
+        אם הקוד שכתבתם "נכשל" באחד המבחנים, תקנו אותו כך שיעבור את המבחן. לחלופין, חשבו מדוע המבחן איננו טוב.
+      </li>
+      <li>
+        המבחנים יכולים לעזור לכם לאבחן קלטים בעייתים. חשבו האם יש קלטים בעייתים נוספים שלא נבדקו.
+      </li>
+    </ul>
+    <br role="presentation" />
+    <p class="regular_text">
+      <strong>זכרו - אם הפרוטוקול לא מוגדר היטב, ייתכנו מימושים שונים והגדרות שונות, ולכן עלינו לבסס פרוטוקול בצורה הכי
+        ברורה שאפשר.</strong>
+    </p>
+    <br role="presentation" /><br role="presentation" /><br role="presentation" /><br role="presentation" /><br
+      role="presentation" /><br role="presentation" /><br role="presentation" /><br role="presentation" /><br
+      role="presentation" />
+
+
+  </div>
+</body>
+
+</html>
