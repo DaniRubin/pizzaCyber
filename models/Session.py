@@ -14,6 +14,6 @@ class UserSession(db.Model):
 
     @staticmethod
     def generate_key():
-        return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits + string.lowercase) for _ in range(session_size))
+        return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) for _ in range(session_size))
 
 

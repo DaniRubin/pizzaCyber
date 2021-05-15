@@ -496,7 +496,7 @@ def OrderFood(food_type, food_id, discount, inner=False):
             food_order = FoodOrder(food_id=desired_food.id,
                                    user_id=user.id,
                                    price_in_dollars=desired_food_price,
-                                   date=parser.parse(request.json['date'].decode('hex')))
+                                   date=parser.parse(bytes.fromhex(request.json['date']).decode('utf-8')))
             db.session.add(food_order)
 
             user.account_balance -= desired_food_price
