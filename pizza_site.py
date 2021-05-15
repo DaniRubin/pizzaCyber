@@ -36,7 +36,7 @@ VIP_DISCOUNT = 0.2
 MANAGER_DISCOUNT = 1
 
 IS_SQL_INJECTION = False
-#check if magshimim project of WEB SEC project
+# check if magshimim project of WEB SEC project
 with open('./config.json') as file:
     IS_SQL_INJECTION = json.load(file)['isSQLinjection']
 
@@ -291,15 +291,14 @@ app.url_map.converters['regex'] = RegexConverter
 
 
 def validateUser(user_name, email):
-    print "in validate user", user_name, email
+    print(f"in validate user {user_name} {email}")
     if not (user_name or email):
         return dict(is_user_taken=False, is_email_taken=False, success=False)
 
     found_user = User.query.filter_by(user_name=user_name).first() is not None
     found_email = User.query.filter_by(email=email).first() is not None
 
-    print "found user", found_user
-    print "found email", found_email
+    print(f"found user {found_user} and email {found_email}")
     return dict(is_user_taken=found_user, is_email_taken=found_email, success=not (found_user or found_email))
 
 
@@ -389,7 +388,7 @@ def TransferMoneyToAccount(prefix):
             db.session.commit()
             success = True
             server_message = (("You have successfully transferred ${!s} to {!s} ").format(amount, receiver.user_name))
-    except (NoResultFound, MultipleResultsFound), e:
+    except (NoResultFound, MultipleResultsFound) as e:
         err_message = "Sorry, could not find the user you entered"
         success = False
     return jsonify(dict(success=success,
@@ -432,7 +431,7 @@ def OrderHistory():
             order_history = [order.ToDict() for order in found_user.order_history]
             user_name = found_user.user_name
             order_history.reverse()
-    except (NoResultFound, MultipleResultsFound), e:
+    except (NoResultFound, MultipleResultsFound) as e:
         order_history = dict()
     user_data_dict.update(dict(order_history=order_history, order_user_name=user_name))
 
@@ -518,7 +517,7 @@ def OrderFood(food_type, food_id, discount, inner=False):
             else:
                 err_message = ("Your current balance is not sufficient for this order."
                                " Please charge up your account or ask a friend to transfer some credit ")
-    except (NoResultFound, MultipleResultsFound), e:
+    except (NoResultFound, MultipleResultsFound) as e:
         err_message = "Sorry, could not find the dish you wish to order"
         success = False
 
@@ -543,7 +542,7 @@ def create_session(user_id):
 @app.route('/logout', methods=['GET'])
 @login_required
 def logout():
-    print 'in custom logout'
+    print('in custom logout')
     ses = UserSession.query.filter_by(key=g.session_key).first()
     db.session.delete(ses)
     db.session.commit()
@@ -554,7 +553,7 @@ def logout():
 
 @app.route('/login', methods=['POST'])
 def login():
-    print 'in custom login'
+    print('in custom login')
     user_name = request.form.get("user_name")
     password = request.form.get("password")
     if not password and not user_name:
@@ -564,21 +563,20 @@ def login():
     elif not user_name:
         return jsonify(dict(success=False, missingUsername=True))
 
-    print(IS_SQL_INJECTION)
+    print(f"SQL injection status - {IS_SQL_INJECTION}")
 
-    # print("Is this magshimim project ?  - " + IS_MAGSHIMIM)
-    if(not IS_SQL_INJECTION):
+    if not IS_SQL_INJECTION:
         user = User.query.filter_by(user_name=user_name, password=password).first()
     else:
         try:
             sqlLine = 'SELECT * FROM user WHERE user_name="'+user_name+'" AND password="'+password+'"'	
-            print(sqlLine)
+            print(f"SQL line injected is - {sqlLine}")
             users = list(db.session.execute(sqlLine))
-            if(len(users) >= 5):
+            if len(users) >= 5:
                 for oneUser in users:
-                    if(oneUser[2] == user_name):
+                    if oneUser[2] == user_name:
                         user = oneUser
-            elif(len(users) > 0):
+            elif len(users) > 0:
                 user = users[0]
             else:
                 user = None
@@ -708,14 +706,13 @@ def GetSidesSelections():
 @login_required
 @LogRequestDuration
 def UpdateUserMessage(message_id):
-    print "Fucking here!"
     user = g.current_user
     try:
         message = Message.query.filter_by(id=message_id).one()
         if message.to_user_id == user.id:
             message.unread = json.loads(request.data)['unread']
             db.session.commit()
-    except (NoResultFound, MultipleResultsFound), e:
+    except (NoResultFound, MultipleResultsFound) as e:
         pass
     return jsonify(dict(unread_messages=len([message for message in user.messages_received if message.unread])))
 
@@ -768,7 +765,7 @@ def MessageView(requested_message_id):
             print("DO THAT!")
             return render_template("inbox.html", **user_data_dict)
 
-        except (NoResultFound, MultipleResultsFound), e:
+        except (NoResultFound, MultipleResultsFound) as e:
             err_message = "Sorry, could not find the user you wanted to message"
             success = False
 

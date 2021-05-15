@@ -1,0 +1,9 @@
+1. Create a conda env for this project
+conda create -n cyber37 python=3.7 anaconda
+
+2. download all conda packages
+download flask-security, flask-sqlalchemy and email_validator by 2.7 version
+
+3. error: - no module called mySQLdb
+solution: conda install -c bioconda mysqlclient
+
